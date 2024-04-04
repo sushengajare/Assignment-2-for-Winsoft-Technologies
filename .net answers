@@ -1,0 +1,180 @@
+Q1: Replace each array element by its corresponding rank
+  Given an array of distinct integers, replace each array element by its corresponding rank in the array.
+
+The minimum array element has the rank 1; the second minimum element has a rank of 2, and so on… For example,
+
+Input:  { 10, 8, 15, 12, 6, 20, 1 } 
+Output: { 4, 3, 6, 5, 2, 7, 1 }
+
+code--\
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class RankArrayElements
+{
+    public static int[] ReplaceWithRank(int[] arr)
+    {
+        // Create a copy of the array to preserve the original
+        int[] sortedArr = arr.ToArray();
+        // Sort the copy to determine ranks
+        Array.Sort(sortedArr);
+
+        // Create a dictionary to store the rank of each element
+        Dictionary<int, int> rankMap = new Dictionary<int, int>();
+        int rank = 1;
+        foreach (int num in sortedArr)
+        {
+            if (!rankMap.ContainsKey(num))
+            {
+                rankMap[num] = rank++;
+            }
+        }
+
+        // Replace each array element with its corresponding rank
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = rankMap[arr[i]];
+        }
+
+        return arr;
+    }
+
+    public static void Main(string[] args)
+    {
+        int[] input = { 10, 8, 15, 12, 6, 20, 1 };
+        int[] output = ReplaceWithRank(input);
+        Console.WriteLine(string.Join(", ", output));
+    }
+}
+
+Q2: Given a string s, find the length of the longest substring without repeating characters.
+Example 1:
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+ 
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of English letters, digits, symbols and spaces.
+code --
+using System;
+using System.Collections.Generic;
+
+public class LongestSubstringWithoutRepeatingChars {
+    public static int LengthOfLongestSubstring(string s) {
+        int n = s.Length;
+        int maxLength = 0;
+        Dictionary<char, int> charIndexMap = new Dictionary<char, int>();
+
+        for (int start = 0, end = 0; end < n; end++) {
+            if (charIndexMap.ContainsKey(s[end]) && charIndexMap[s[end]] >= start) {
+                start = charIndexMap[s[end]] + 1;
+            }
+            charIndexMap[s[end]] = end;
+            maxLength = Math.Max(maxLength, end - start + 1);
+        }
+
+        return maxLength;
+    }
+
+    public static void Main(string[] args) {
+        string s1 = "abcabcbb";
+        Console.WriteLine("Length of the longest substring without repeating characters in \"" + s1 + "\" is: " + LengthOfLongestSubstring(s1));
+
+        string s2 = "bbbbb";
+        Console.WriteLine("Length of the longest substring without repeating characters in \"" + s2 + "\" is: " + LengthOfLongestSubstring(s2));
+
+        string s3 = "pwwkew";
+        Console.WriteLine("Length of the longest substring without repeating characters in \"" 
+Q3:Find non-repeating characters in a string 
+code --
+using System;
+using System.Collections.Generic;
+
+public class NonRepeatingCharacters {
+    public static List<char> FindNonRepeatingCharacters(string s) {
+        Dictionary<char, int> charCountMap = new Dictionary<char, int>();
+
+        // Count occurrences of each character
+        foreach (char c in s) {
+            if (charCountMap.ContainsKey(c)) {
+                charCountMap[c]++;
+            } else {
+                charCountMap[c] = 1;
+            }
+        }
+
+        // Find non-repeating characters
+        List<char> nonRepeatingChars = new List<char>();
+        foreach (char c in s) {
+            if (charCountMap[c] == 1) {
+                nonRepeatingChars.Add(c);
+            }
+        }
+
+        return nonRepeatingChars;
+    }
+
+    public static void Main(string[] args) {
+        string input = "aabbccddeeffgghhiijj";
+        List<char> result = FindNonRe
+
+Q4:You are given an array of integers. 
+Write a C# program to find the frequency of each unique element in the array and 
+store the results in a dictionary where the key is the element and the value is its frequency.
+Then, print the elements and their frequencies.
+
+Example:
+Input:
+int[] numbers = { 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 };
+
+Output:
+Element: 1, Frequency: 1
+Element: 2, Frequency: 2
+Element: 3, Frequency: 3
+Element: 4, Frequency: 4
+code--
+using System;
+using System.Collections.Generic;
+
+public class ElementFrequency {
+    public static Dictionary<int, int> FindElementFrequency(int[] numbers) {
+        Dictionary<int, int> frequencyMap = new Dictionary<int, int>();
+
+        // Count the frequency of each unique element
+        foreach (int num in numbers) {
+            if (frequencyMap.ContainsKey(num)) {
+                frequencyMap[num]++;
+            } else {
+                frequencyMap[num] = 1;
+            }
+        }
+
+        return frequencyMap;
+    }
+
+    public static void Main(string[] args) {
+        int[] numbers = { 1, 2, 2, 3, 3, 3, 4, 4, 4, 4 };
+
+        Dictionary<int, int> frequencyMap = FindElementFrequency(numbers);
+
+        Console.WriteLine("Element frequencies:");
+        foreach (var entry in frequencyMap) {
+            Console.WriteLine("Element: " + entry.Key + ", Frequency: " + entry.Value);
+        }
+    }
+}
+
